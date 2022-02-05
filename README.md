@@ -24,3 +24,18 @@ Results:
 ```text
     Yaakov(15), Tomer(10), Sara(12)
 ```
+
+# Implementation
+
+    Parsing the file
+    Names: ('Jacob', 12), ('Sara', 12), ('Tommer', 4), ('Yaacov', 3), ('Tomer', 6)]
+    Synonyms: [('Yaakov', 'Jacob'), ('Yaakov', 'Yaacov'), ('Tomer', 'Tommer')]
+
+    Megring Synonyms
+    Synonyms: [[{'Yaacov', 'Yaakov', 'Jacob'}, 0], [{'Tommer', 'Tomer'}, 0]]
+
+    Merging Names
+    [[{'Yaakov', 'Jacob', 'Yaacov'}, 15], [{'Tomer', 'Tommer'}, 10], [{'Sara'}, 12]]
+
+    Output
+    Yaakov(15), Tomer(10), Sara(12)

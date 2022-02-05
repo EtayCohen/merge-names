@@ -2,10 +2,15 @@ import argparse
 
 
 def parse_file(filename):
+    """
+    Parse given file
+    :param filename: file to parse
+    :return: names and synonyms
+    """
     names = []
     synonyms = []
     with open(filename, "r") as file:
-        names, synonyms = file.readlines()
+        names, synonyms = file.read().splitlines()[:2]
         names, synonyms = names.replace(' ', ''), synonyms.replace(
             ' ', '').replace('(', '').replace(')', '')
         names, synonyms = names[6::].split(','), synonyms[9::].split(',')
@@ -16,6 +21,11 @@ def parse_file(filename):
 
 
 def merge_syns(synonyms):
+    """
+    Merge synonyms
+    :param synonyms: synonyms to merge
+    :return: merged synonyms
+    """
     syns = []
     for a, b in synonyms:
         f = False
@@ -32,17 +42,23 @@ def merge_syns(synonyms):
 
 
 def merge_names(names, synonyms):
-    syns = merge_syns(synonyms)
+    """
+    Merge names according to synonyms
+    :param names: names to merge
+    :param synonyms: synonyms
+    :return: None
+    """
+    map = merge_syns(synonyms)
     for name, frq in names:
         flag = False
-        for pair in syns:
+        for pair in map:
             set, _ = pair
             if name in set:
                 pair[1] += frq
                 flag = True
         if not flag:
-            syns.append([{name}, frq])
-    print(', '.join([f"{st.pop()}({sm})" for st, sm in syns]))
+            map.append([{name}, frq])
+    print(', '.join([f"{st.pop()}({sm})" for st, sm in map]))
 
 
 def main():
